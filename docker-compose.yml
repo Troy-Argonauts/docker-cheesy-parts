@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  cheesy-parts:
+    build: .
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=cheesy_parts
+      - MYSQL_USER=team254
+      - MYSQL_PASSWORD=correcthorsebatterystaple
+    ports:
+      - "9000:9000"
+    depends_on:
+      - "mysql"
+    restart: always
+
+  mysql:
+    image: mysql/mysql-server:5.7
+    environment:
+      - MYSQL_DATABASE=cheesy_parts
+      - MYSQL_USER=team254
+      - MYSQL_PASSWORD=correcthorsebatterystaple
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
