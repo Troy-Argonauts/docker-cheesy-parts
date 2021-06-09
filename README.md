@@ -23,6 +23,7 @@ docker run \
 
 The following environment variables can be configured:
 
+- `PORT`: HTTP port
 - `MYSQL_HOST`: MySQL hostname (default: `localhost`)
 - `MYSQL_DATABASE`: MySQL database name
 - `MYSQL_USER`: MySQL username
@@ -41,6 +42,14 @@ docker compose up --build
 Edit [docker-compose.yml](./docker-compose.yml) to change the MySQL credentials.
 
 The MySQL data directory is mounted to `./mysql` by default.
+
+## Hosting with Heroku
+
+[Heroku](https://www.heroku.com/) is an easy and typically free way to host web applications, including the database. At the root of this project is a setup script [`heroku.sh`](./heroku.sh) that can do all the app setup needed:
+
+```shell
+./heroku.sh <app_name>
+```
 
 # License
 
