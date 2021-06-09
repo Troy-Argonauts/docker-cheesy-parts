@@ -4,7 +4,7 @@ set -euo pipefail
 APP_NAME=${1:-argo-cheesy-parts}
 APP_DOMAIN=${2:-parts.frcargonauts.org}
 
-if ! heroku apps:info > /dev/null; then
+if ! heroku apps:info &> /dev/null; then
     heroku create argo-cheesy-parts
     heroku stack:set container
 fi
@@ -30,3 +30,7 @@ fi
 
 heroku domains
 echo ""
+
+if ! heroku certs:info &> /dev/null; then
+    heroku certs:auto:enable || true
+fi
