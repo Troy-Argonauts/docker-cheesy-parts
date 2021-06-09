@@ -1,9 +1,3 @@
-# heroku login -i
-# heroku create argo-cheesy-parts
-# heroku stack:set container
-# heroku addons:create cleardb:ignite
-# heroku config:set MYSQL_HOST='' MYSQL_DATABASE='heroku_db' MYSQL_USER='' MYSQL_PASSWORD=''
-
 build:
   docker:
     web: Dockerfile
