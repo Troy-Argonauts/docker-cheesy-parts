@@ -2,6 +2,7 @@
 set -euo pipefail
 
 # Set the MySQL connection details from env vars
+jq --arg PORT "${PORT:-9000}" '.global.port = $PORT' config.json | sponge config.json
 jq --arg MYSQL_HOST "${MYSQL_HOST:-localhost}" '.global.db_host = $MYSQL_HOST' config.json | sponge config.json
 jq --arg MYSQL_DATABASE "$MYSQL_DATABASE" '.global.db_database = $MYSQL_DATABASE' config.json | sponge config.json
 jq --arg MYSQL_USER "$MYSQL_USER" '.global.db_user = $MYSQL_USER' config.json | sponge config.json

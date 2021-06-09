@@ -23,6 +23,7 @@ docker run \
 
 The following environment variables can be configured:
 
+- `PORT`: HTTP port
 - `MYSQL_HOST`: MySQL hostname (default: `localhost`)
 - `MYSQL_DATABASE`: MySQL database name
 - `MYSQL_USER`: MySQL username
