@@ -8,11 +8,11 @@ RUN apt-get update && \
     git clone --depth 1 https://github.com/Team254/cheesy-parts.git && \
     cd cheesy-parts && \
     # Install Ruby
-    apt-get install -y --no-install-recommends rbenv ruby-all-dev ruby-build && \
+    apt-get install -y --no-install-recommends libssl1.0-dev rbenv ruby-all-dev ruby-build && \
     rbenv install $(rbenv install --list | awk '{print $1}' | grep ^$(cat .rbenv-version .ruby-version 2> /dev/null || true) | tail -1) && \
     gem install bundler && \
     # Install cheesy-parts
-    apt-get install -y --no-install-recommends default-libmysqlclient-dev jq libssl1.0-dev moreutils && \
+    apt-get install -y --no-install-recommends default-libmysqlclient-dev jq moreutils && \
     bundle update --bundler && \
     bundle update mysql2 --conservative && \
     bundle install && \
