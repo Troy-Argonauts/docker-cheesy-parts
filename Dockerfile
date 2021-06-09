@@ -10,7 +10,7 @@ RUN apt-get update && \
     # Install cheesy-parts dependencies
     apt-get install -y --no-install-recommends default-libmysqlclient-dev git jq moreutils && \
     # Install cheesy-parts
-    git clone https://github.com/Team254/cheesy-parts.git && \
+    git clone --depth 1 https://github.com/Team254/cheesy-parts.git && \
     cd cheesy-parts && \
     bundle update --bundler && \
     bundle update mysql2 --conservative && \
@@ -18,7 +18,8 @@ RUN apt-get update && \
     jq '.global.enable_wordpress_auth = false' config.json | sponge config.json && \
     jq '.dev.members_url = ""' config.json | sponge config.json && \
     # Patches
-    echo "DB.extension(:connection_validator)" >> db.rb
+    echo "DB.extension(:connection_validator)" >> db.rb && \
+    echo "DB.pool.connection_validation_timeout = -1" >> db.rb
 WORKDIR /cheesy-parts
 
 # Set up the ENTRYPOINT
