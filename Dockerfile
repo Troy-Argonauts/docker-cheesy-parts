@@ -16,7 +16,9 @@ RUN apt-get update && \
     bundle update mysql2 --conservative && \
     bundle install && \
     jq '.global.enable_wordpress_auth = false' config.json | sponge config.json && \
-    jq '.dev.members_url = ""' config.json | sponge config.json
+    jq '.dev.members_url = ""' config.json | sponge config.json && \
+    # Patches
+    echo "DB.extension(:connection_validator)" >> db.rb
 WORKDIR /cheesy-parts
 
 # Set up the ENTRYPOINT
