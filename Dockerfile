@@ -1,17 +1,18 @@
-FROM debian:buster
+FROM debian:stretch
 
 SHELL ["/bin/bash", "--login", "-c"]
 
 RUN apt-get update && \
-    # Install Ruby v1.9.3
-    apt-get install -y --no-install-recommends rbenv ruby-all-dev ruby-build && \
-    rbenv install 1.9.3-p286 && \
-    gem install bundler && \
-    # Install cheesy-parts dependencies
-    apt-get install -y --no-install-recommends default-libmysqlclient-dev git jq moreutils && \
-    # Install cheesy-parts
+    # Clone cheesy-parts
+    apt-get install -y --no-install-recommends ca-certificates git && \
     git clone --depth 1 https://github.com/Team254/cheesy-parts.git && \
     cd cheesy-parts && \
+    # Install Ruby
+    apt-get install -y --no-install-recommends rbenv ruby-all-dev ruby-build && \
+    rbenv install $(rbenv install --list | awk '{print $1}' | grep ^$(cat .rbenv-version .ruby-version 2> /dev/null || true) | tail -1) && \
+    gem install bundler && \
+    # Install cheesy-parts
+    apt-get install -y --no-install-recommends default-libmysqlclient-dev jq libssl1.0-dev moreutils && \
     bundle update --bundler && \
     bundle update mysql2 --conservative && \
     bundle install && \
