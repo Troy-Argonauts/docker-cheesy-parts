@@ -20,8 +20,11 @@ RUN apt-get update && \
     jq '.dev.members_url = ""' config.json | sponge config.json && \
     # Patches
     echo "DB.extension(:connection_validator)" >> db.rb && \
-    echo "DB.pool.connection_validation_timeout = -1" >> db.rb
+    echo "DB.pool.connection_validation_timeout = -1" >> db.rb && \
+    sed -i 's/\(<link[^>]\+rel="[^"]*icon[^"]*"[^>]\+\)href="[^"]\+"\([^>]*>\)/\1href="\/img\/favicon.png"\2/' views/header.erb
 WORKDIR /cheesy-parts
+
+COPY favicon.png /cheesy-parts/public/img/favicon.png
 
 # Set up the ENTRYPOINT
 RUN apt-get install -y --no-install-recommends dumb-init
